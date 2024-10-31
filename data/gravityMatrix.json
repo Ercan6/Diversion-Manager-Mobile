@@ -1,0 +1,58 @@
+[
+    {
+        "CJS Offence Code": "AB06001",
+        "Offence Title": "Obstruct person acting in execution of the regulations",
+        "Legislation": ""
+    },
+    {
+        "CJS Offence Code": "AB13001",
+        "Offence Title": "Fail to comply with an animal by-product requirement",
+        "Legislation": "Contrary to regulations 17 and 20 of the Animal By-Products (Enforcement) (England) Regulations 2013."
+    },
+    {
+        "CJS Offence Code": "AB13002",
+        "Offence Title": "Intentionally obstruct an authorised person",
+        "Legislation": "Contrary to regulations 18(a) and 20 of the Animal By-Products (Enforcement) (England) Regulations 2013."
+    },
+    {
+        "CJS Offence Code": "AB13003",
+        "Offence Title": "Fail to give to an authorised person information / assistance / provide facilities that person may require",
+        "Legislation": "Contrary to regulations 18(b) and 20 of the Animal By-Products (Enforcement) (England) Regulations 2013."
+    },
+    {
+        "CJS Offence Code": "AB13004",
+        "Offence Title": "Knowingly / recklessly give false / misleading information to an authorised person",
+        "Legislation": "Contrary to regulations 18(c) and 20 of the Animal By-Products (Enforcement) (England) Regulations 2013."
+    },
+    {
+        "CJS Offence Code": "AB13005",
+        "Offence Title": "Fail to produce a record / document when required by an authorised person",
+        "Legislation": "Contrary to regulations 18(d) and 20 of the Animal By-Products (Enforcement) (England) Regulations 2013."
+    },
+    {
+        "CJS Offence Code": "AB13006",
+        "Offence Title": "Contravene/fail to comply with provisions of a notice served under regulation 25",
+        "Legislation": "Contrary to regulations 25(5) and 20 of the Animal By-Product (Enforcement) (England) Regulations 2013. "
+    },
+    {
+        "CJS Offence Code": "AB14001",
+        "Offence Title": "Fail to comply with an animal by-product requirement",
+        "Legislation": "Contrary to regulations 17 and 20 of the Animal By-Products (Enforcement) (Wales) Regulations 2014."
+    },
+    {
+        "CJS Offence Code": "AB14002",
+        "Offence Title": "Intentionally obstruct an authorised person",
+        "Legislation": "Contrary to regulations 18(a) and 20 of the Animal By-Products (Enforcement) (Wales) Regulations 2014."
+    },
+    {
+        "CJS Offence Code": "AB14003",
+        "Offence Title": "Fail to give to an authorised person information / assistance / provide facilities that person may require",
+        "Legislation": "Contrary to regulation 18(b) and 20 of the Animal By-Products (Enforcement) (Wales) Regulations 2014."
+    },
+    {
+        "CJS Offence Code": "AB14004",
+        "Offence Title": "Knowingly / recklessly give false / misleading information to an authorised person",
+        "Legislation": "Contrary to regulation 18(c) and 20 of the Animal By-Products (Enforcement) (Wales) Regulations 2014."
+    }
+]
+  
