@@ -1,5 +1,5 @@
-# Advent Diversion Manager
+# Diversion Manager Mobile
 
-Welcome to the Advent Diversion Manager! 
+Welcome to the Diversion Manager Mobile! 
 
-For more information, please visit our [Wiki](https://github.com/Ercan6/Advent-Diversion-Manager/wiki).
+For more information, please visit our [Wiki](https://github.com/Ercan6/Diversion-Manager-Mobile/wiki).
