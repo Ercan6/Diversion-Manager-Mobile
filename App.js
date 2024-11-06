@@ -81,7 +81,7 @@ const MainApp = () => {
       style={{ flex: 1, backgroundColor: "#f2f2f2", paddingTop: insets.top }}
     >
       {/* Displaying the app logo */}
-      <Image style={styles.logo} source={require("./assets/icon.png")} />
+      <Image style={styles.logo} source={require("./assets/logo.png")} />
       {/* Navigation container to manage screen navigation */}
       <NavigationContainer>
         <Stack.Navigator
