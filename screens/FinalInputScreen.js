@@ -1,4 +1,5 @@
-import { useContext, useState, useEffect } from 'react';
+// Importing Components and Hooks from react and react-native
+import { useContext, useState } from "react";
 import {
   Text,
   TextInput,
@@ -9,25 +10,38 @@ import {
   TouchableWithoutFeedback,
   Alert,
   Dimensions,
-  Platform
-} from 'react-native';
-import { AppContext } from '../App';
-import * as Print from 'expo-print'; // Import expo-print
-import * as MailComposer from 'expo-mail-composer';
-import { SUBMISSION_SUBJECT, SUBMISSION_BODY } from '../config';
-const { width, height } = Dimensions.get('window');
+  Platform,
+} from "react-native";
 
+// Importing global context from App component to access shared state
+import { AppContext } from "../App";
 
+// Import library to create PDFs
+import * as Print from "expo-print";
+
+// Import library to send emails with attachments
+import * as MailComposer from "expo-mail-composer";
+
+// Importing values from config file for email subject and body
+import { SUBMISSION_SUBJECT, SUBMISSION_BODY } from "../config";
+
+// Define dimension for screen height
+const { height } = Dimensions.get("window");
 
 const FinalInput = () => {
-  const { gravityscore, finalinput, personaldata, answers } = useContext(AppContext);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [officerEmail, setOfficerEmail] = useState('');
+  // Accessing shared states and set states functions from AppContext to access all the collected data
+  const { gravityscore, finalinput, personaldata, answers } =
+    useContext(AppContext);
 
+  // Local states to store the user's inputs for this view
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [officerEmail, setOfficerEmail] = useState("");
+
+  // Function to create a PDF based on input data
   const createPDF = async () => {
     try {
-      // HTML content for the PDF
+      // HTML Template for the PDF content. Here all the collected data is being mapped to HTML Elements
       const htmlContent = `
          <h1>Needs Assessment:</h1>
         <p>Criminal Reference Number: ${gravityscore.criminalreferencenumber}</p>
@@ -43,7 +57,7 @@ const FinalInput = () => {
         <h2>Personal Data:</h2>
         <p>Gender: ${personaldata.gender}</p>
         <p>Sex: ${personaldata.sex}</p>
-        <p>Date of Birth: ${personaldata.date.toISOString().split('T')[0]}</p> 
+        <p>Date of Birth: ${personaldata.date.toISOString().split("T")[0]}</p> 
         <p>Age: ${personaldata.age}</p>
         <p>Officer defined Ethnicity: ${personaldata.ethnicityofficer}</p>
         <p>>Offender defined Ethnicity: ${personaldata.ethnicityoffender}</p>
@@ -79,19 +93,20 @@ const FinalInput = () => {
 <p>Does the client need any adjustment to successfully complete the intervention?: ${finalinput.adjustments}</p>
       `;
 
-      // Create PDF
+      // Create PDF from the HTML content
       const { uri } = await Print.printToFileAsync({ html: htmlContent });
-      console.log('PDF created at:', uri); // Log the PDF URI for debugging
 
-      // Optionally, you can send the PDF via email
+      // Send PDF via email
       await sendEmailWithPDF(uri);
-      
+
+      //error for creating pdf
     } catch (error) {
-      console.error('Error creating PDF:', error);
-      Alert.alert('Error', 'Failed to create PDF file.');
+      console.error("Error creating PDF:", error);
+      Alert.alert("Error", "Failed to create PDF file.");
     }
   };
 
+  // Function to send the generated PDF via email
   const sendEmailWithPDF = async (pdfPath) => {
     const result = await MailComposer.composeAsync({
       subject: SUBMISSION_SUBJECT,
@@ -100,27 +115,43 @@ const FinalInput = () => {
       attachments: [pdfPath],
     });
 
-    if (result.status === 'sent') {
-      Alert.alert('Submission was successful.');
+    if (result.status === "sent") {
+      Alert.alert("Submission was successful.");
     } else {
-      Alert.alert('Error', 'Failed to send email.');
+      //Error for sending email
+      Alert.alert("Error", "Failed to send email.");
     }
   };
 
-  const nextPage = () => {
-    const isEmailValid = officerEmail.includes('@') && officerEmail.includes('.');
+  //Function to handle button press. Checks if inputs are valid and starts pdf creation
+  const startPDF = () => {
+    // Validate email and ensure fields are not empty
+    const isEmailValid =
+      officerEmail.includes("@") && officerEmail.includes(".");
 
-    if (firstName.trim() !== '' && lastName.trim() !== '' && officerEmail.trim() !== '' && isEmailValid) {
-      createPDF();
+    if (
+      firstName.trim() !== "" &&
+      lastName.trim() !== "" &&
+      officerEmail.trim() !== "" &&
+      isEmailValid
+    ) {
+      createPDF(); // Generate PDF if all fields are valid
     } else {
-      Alert.alert('Invalid Input', 'Please correctly fill out all the required fields.', [{ text: 'OK' }], { cancelable: true });
+      Alert.alert(
+        "Invalid Input",
+        "Please correctly fill out all the required fields.",
+        [{ text: "OK" }],
+        { cancelable: true },
+      );
     }
   };
 
   return (
+    // Dismiss the keyboard when tapping outside the input
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.background}>
         <View style={styles.dropdownContainer}>
+          {/* Input fields for officer's name and email */}
           <Text style={styles.text2}>Officer's Name</Text>
           <TextInput
             style={styles.input}
@@ -147,7 +178,8 @@ const FinalInput = () => {
             autoCapitalize="none"
             autoCorrect={false}
           />
-          <TouchableOpacity style={styles.beginButton} onPress={nextPage}>
+          {/* Button to submit the email */}
+          <TouchableOpacity style={styles.beginButton} onPress={startPDF}>
             <Text style={styles.text}>Submit</Text>
           </TouchableOpacity>
         </View>
@@ -156,43 +188,45 @@ const FinalInput = () => {
   );
 };
 
+// Styling for the components
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#f2f2f2",
+    justifyContent: "center",
+    alignItems: "center",
   },
   dropdownContainer: {
-    width: '80%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "80%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   beginButton: {
-    bottom: height * -0.065,
+    bottom: height * -0.065, //adjusting button positioning
     height: height * 0.08,
-    marginBottom: height * 0.03,
-    width: '100%',
-    backgroundColor: '#E73D2F',
+    marginBottom: height * 0.03, //adjusting button margin
+    width: "100%",
+    backgroundColor: "#E73D2F",
     borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
-    color: 'white',
+    color: "white",
     fontSize: 20,
     borderRadius: 25,
   },
   input: {
-    alignSelf: 'center',
-    width: '90%',
+    alignSelf: "center",
+    width: "90%",
     height: height * 0.075,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     marginBottom: height * 0.03,
-    paddingHorizontal: '6%',
+    paddingHorizontal: "6%",
     fontSize: 18,
-    color: '#4F4F4F',
-    textAlign: 'left',
+    color: "#4F4F4F",
+    textAlign: "left",
+    //Seperating Border Radius for Android and iOS to be more similar to the native UI
     borderRadius: Platform.select({
       ios: 25,
       android: 0,
@@ -201,11 +235,11 @@ const styles = StyleSheet.create({
   },
   text2: {
     marginBottom: height * 0.03,
-    color: '#4F4F4F',
+    color: "#4F4F4F",
     fontSize: 20,
     borderRadius: 25,
-    textAlign: 'center',
-    width: '90%',
+    textAlign: "center",
+    width: "90%",
   },
 });
 
